@@ -1,0 +1,33 @@
+#ifndef _BOX_HPP
+#define	_BOX_HPP
+
+#include "shape.hpp"
+#include "point3d.hpp"
+#include "color.hpp"
+#include <iostream>
+#include <cmath>
+
+
+class box : public shape
+{
+    public:
+                        	box();
+				box( point const&, point const&, std::string const&, color const&);
+				box(box const&);
+				~box();
+ 
+	/*virtual*/ 	double	volume()			const;
+	/*virtual*/ 	bool	isInside(point const&)	const;
+	/*virtual*/	double	surface()			const;
+	/*virtual*/	void	printOn(std::ostream&)		const;
+	/*virtual*/	box*	clone()				const;
+//			box*	operator=(box*);
+
+
+    private:
+			point	vertex_[2];
+};
+
+
+
+#endif	/* _BOX_HPP */

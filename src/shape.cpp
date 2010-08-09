@@ -1,0 +1,112 @@
+
+
+#include "shape.hpp"
+
+
+shape::shape() : refCount_(0)	{ std::cout << "Konstruktor Shape\n"; }
+shape::shape(std::string const& s, rgb const& col) : color_(col) , name_(s) , refCount_(0) { std::cout << "Konstruktor Shape\n"; }
+shape::shape(shape const& sh) : color_(sh.color_) , name_(sh.name_), refCount_(0) { std::cout << "konstruktor Shape\n";  }
+shape::~shape() { std::cout << "Destruktor Shape\n"; }
+
+
+//
+// getcolor
+//
+//color shape::getColor()	const
+//{
+//	return color_;	
+//}
+//
+
+//
+// getname
+//
+std::string shape::getName()	const
+{
+	return name_;	
+}
+//
+
+
+//
+// printOn
+//
+void shape::printOn( std::ostream& stream)	const
+{
+	stream << "Name: " << name_ << ", Farbe: (" << color_[r] << "," << color_[g] << "," << color_[b] << ")\n";
+}
+//
+
+std::ostream& operator<<(std::ostream& stream, shape const& sh)
+{
+	sh.printOn(stream);
+	return stream;
+}
+
+bool operator==(shape const& lhs, shape const& rhs)
+{
+	return lhs.getName() == rhs.getName();	
+}
+
+
+//
+// ref
+//
+int	shape::ref()
+{
+	return ++refCount_;
+}
+//
+
+
+//
+// unRef
+//
+int	shape::unRef()
+{
+	--refCount_;
+	if (refCount_ <= 0)
+	{
+		delete this;	
+		return 0;
+	}
+	return refCount_;
+}
+//
+
+
+//
+// getRef
+//
+//int shape::getRef()
+//{
+//	return refCount_;	
+//}
+//
+
+
+//
+// operator =
+//
+/*shape*	shape::operator=(shape* sh)
+{
+
+std::cout << "\nhahO\n";
+	sh->ref();
+
+	return sh;
+}*/
+//
+
+
+
+
+
+
+
+
+
+
+
+
+
