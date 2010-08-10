@@ -6,9 +6,16 @@
 // Konstruktoren
 //
 sphere::sphere() 	{}
-sphere::sphere(math3d::point const& c, double r, std::string const& name, rgb const& col) : shape(name, col) , center_(c) , radius_(r)
+sphere::sphere(math3d::point const& c, double r, std::string const& name, rgb const& col, material const& mat) : 
+		shape(name, col, mat) , 
+		center_(c) , 
+		radius_(r)
 			{}
-sphere::sphere(sphere const& sp) : shape(sp) , center_(sp.center_) , radius_(sp.radius_) {}
+sphere::sphere(sphere const& sp) : 
+		shape(sp) , 
+		center_(sp.center_) , 
+		radius_(sp.radius_) 	{}
+
 sphere::~sphere() 	{}
 //
 
@@ -63,16 +70,21 @@ sphere* sphere::clone()	const
 {
 	return new sphere(*this);	
 }
+//
 
-double sphere::intersection(ray const& a)
+
+//
+// intersection
+//
+double sphere::intersection(ray const& ray)
 {
 	//Strahl transformieren
 	//Multiplikation mit inverser Matrix der Sphere
 
 	//quadratische gl
-	double a = math3d::dot(a.direction_, a.direction_)
-	double b = 2 * (math3d::dot(a.origin_ , a.direction_));
-	double c = (math3d::dot(a.origin_ , a.origin_)) - (radius_*radius_);
+	double a = math3d::dot(ray.direction_, ray.direction_);
+	double b = 2 * (math3d::dot(ray.origin_ , ray.direction_));
+	double c = (math3d::dot(ray.origin_ , ray.origin_)) - (radius_*radius_);
 
 	double under_sqrt = (b * b) - 4 * c;
 
@@ -97,7 +109,7 @@ double sphere::intersection(ray const& a)
 		return i_1;
 	}
 }
-
+//
 
 
 

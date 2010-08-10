@@ -2,6 +2,7 @@
 #define	_SPHERE_HPP
 
 #include "shape.hpp"
+#include "vector.hpp"
 #include "point.hpp"
 #include "rgb.hpp"
 #include "ray.hpp"
@@ -10,7 +11,7 @@ class sphere : public shape
 {
     public:
                         	sphere();
-				sphere(math3d::point const&, double, std::string const&, rgb const&);
+				sphere(math3d::point const&, double, std::string const&, rgb const&, material const& );
 				sphere(sphere const&);
 				~sphere();
  
@@ -19,12 +20,7 @@ class sphere : public shape
 	/*virtual*/	double	surface()			const;
 	/*virtual*/	void	printOn( std::ostream&)		const;
 	/*virtual*/	sphere*	clone()				const;
-
-			double	intersection(ray const&);
-	//		sphere*	operator=(sphere*);
-	//		sphere	operator=(sphere);
-
-
+	/*virual*/	double	intersection(ray const&);
 
 
     private:

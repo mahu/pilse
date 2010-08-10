@@ -2,9 +2,28 @@
 
 
 shape::shape() : refCount_(0)	{}
-shape::shape(std::string const& s, rgb const& col) : color_(col) , name_(s) , refCount_(0) {}
-shape::shape(shape const& sh) : color_(sh.color_) , name_(sh.name_), refCount_(0) {}
+shape::shape(std::string const& s, rgb const& col, material const& mat) : 
+		color_(col) , 
+		name_(s) , 
+		refCount_(0), 
+		material_(mat) 	{}
+shape::shape(shape const& sh) : 
+		color_(sh.color_) , 
+		name_(sh.name_), 
+		refCount_(0), 
+		material_(sh.material_)		 {}
+
 shape::~shape() {}
+
+
+//
+// getmaterial
+//
+material shape::getMaterial()	const
+{
+	return material_;	
+}
+//
 
 
 //
