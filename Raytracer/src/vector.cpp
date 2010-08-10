@@ -190,6 +190,11 @@ namespace math3d {
   {
     return vector(lhs) /= rhs;
   }
+
+ double operator*(vector const& lhs, vector const& rhs)
+  {
+	return (lhs[vector::x]*rhs[vector::x]+lhs[vector::y]*rhs[vector::y]+lhs[vector::z]+rhs[vector::z]);
+  }
   
   /* static */ vector const&
   vector::null() 

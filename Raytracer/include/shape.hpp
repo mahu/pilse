@@ -15,11 +15,7 @@ class shape
 	virtual			~shape();
  
 	virtual double		volume() 					const 	=0;
-<<<<<<< HEAD
-	virtual bool		isInside(point const&)			const	=0;
-=======
 	virtual bool		isInside(math3d::point const&)			const	=0;
->>>>>>> upstream/master
 	virtual	double		surface()					const	=0;
 	virtual shape*		clone()						const	=0;
 		rgb		getColor()					const;

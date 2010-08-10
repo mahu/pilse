@@ -12,20 +12,21 @@ class box : public shape
 {
     public:
                         	box();
-				box( point const&, point const&, std::string const&, color const&);
+				box( math3d::point const&, math3d::point const&, std::string const&, rgb const&);
 				box(box const&);
 				~box();
  
-	/*virtual*/ 	double	volume()			const;
-	/*virtual*/ 	bool	isInside(point const&)	const;
-	/*virtual*/	double	surface()			const;
-	/*virtual*/	void	printOn(std::ostream&)		const;
-	/*virtual*/	box*	clone()				const;
-//			box*	operator=(box*);
+	/*virtual*/ 	double	volume()				const;
+	/*virtual*/ 	bool	isInside(math3d::point const&)		const;
+	/*virtual*/	double	surface()				const;
+	/*virtual*/	void	printOn(std::ostream&)			const;
+	/*virtual*/	box*	clone()					const;
+
 
 
     private:
-			point	vertex_[2];
+			math3d::point	vertexLuv_;
+			math3d::point	vertexRoh_;
 };
 
 

@@ -76,6 +76,7 @@ namespace math3d {
   vector operator-(vector const&, vector const&);
   vector operator*(vector const&, double);
   vector operator*(double, vector const&);
+  double operator*(vector const&, vector const&);
   vector operator/(vector const&, double);
   bool   operator==(vector const&, vector const&);
 

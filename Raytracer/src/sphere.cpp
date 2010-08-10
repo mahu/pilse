@@ -2,12 +2,16 @@
 #include<cmath>
 #include "sphere.hpp"
 
-
+//
+// Konstruktoren
+//
 sphere::sphere() 	{}
 sphere::sphere(math3d::point const& c, double r, std::string const& name, rgb const& col) : shape(name, col) , center_(c) , radius_(r)
 			{}
 sphere::sphere(sphere const& sp) : shape(sp) , center_(sp.center_) , radius_(sp.radius_) {}
 sphere::~sphere() 	{}
+//
+
 
 //
 // volume - Berechnung Kugelvolumen
@@ -60,12 +64,12 @@ sphere* sphere::clone()	const
 	return new sphere(*this);	
 }
 
-double sphere::intersection(ray a)
+double sphere::intersection(ray const& a)
 {
-	if(sqrt(pow(a.origin_,2)-4*(origin_*origin_-pow(radius,2)))>0)
+	if(sqrt((a.origin_*a.origin_)-4*(a.origin_*a.origin_-pow(radius_,2)))>0)
 	{
-		double i_1=0.5*(-(2*a.origin_)-sqrt(pow(a.origin_,2)-4*(origin_*origin_-pow(radius,2))));
-		double i_2=0.5*(-(2*a.origin_)+sqrt(pow(a.origin_,2)-4*(origin_*origin_-pow(radius,2))));
+		double i_1=0.5*(-(2*(a.origin_*a.direction_))-sqrt((a.origin_*a.origin_)-4*(a.origin_*a.origin_-pow(radius_,2))));
+		double i_2=0.5*(-(2*(a.origin_*a.direction_))+sqrt((a.origin_*a.origin_)-4*(a.origin_*a.origin_-pow(radius_,2))));
 		
 		if(i_1<=i_2)
 			return i_1;
@@ -74,39 +78,15 @@ double sphere::intersection(ray a)
 		
 
 	}
-	else if (sqrt(pow(a.origin_,2)-4*(origin_*origin_-pow(radius,2)))==0)
+	else if (sqrt((a.origin_*a.origin_)-4*(a.origin_*a.origin_-pow(radius_,2)))==0)
 	{
-		double i_1=0.5*(-(2*a.origin_)-sqrt(pow(a.origin_,2)-4*(origin_*origin_-pow(radius,2))));
+		double i_1=0.5*(-(2*(a.origin_*a.direction_))+sqrt((a.origin_*a.origin_)-4*(a.origin_*a.origin_-pow(radius_,2))));
 		
 		return i_1;
 	}
 	
 	return ~0;
 }
-
-
-/*
-//
-// operator =
-//
-sphere*	sphere::operator=(sphere* sp)
-{
-	sp->ref();
-std::cout << "\nhihu\n";
-	return sp;
-}
-//
-
-sphere	sphere::operator=(sphere sp)
-{
-	sp.ref();
-std::cout << "\nhihu\n";
-	return sp;
-}*/
-//
-
-
-
 
 
 

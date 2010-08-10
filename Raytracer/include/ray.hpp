@@ -1,17 +1,20 @@
-#include<point.hpp>
-#include<vector.hpp>
+
+#include "vector.hpp"
+
+#include <iostream>
+#include <cmath>
 
 struct ray
 {
 
 	//Konstruktoren
 
-	ray();
-	ray(point a, vector b);
+			ray();
+			ray(math3d::vector a, math3d::vector b);
 
 
 	//Membervariablen
 
-	point	origin_;
-	vector	direction_;
+	math3d::vector	origin_;
+	math3d::vector	direction_;
 };

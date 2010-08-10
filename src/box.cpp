@@ -1,21 +1,28 @@
-
-
 #include "box.hpp"
 
-
+//
+// Konstruktoren, Destruktor
+//
 box::box() 	{ std::cout << "Konstruktor Box\n"; }
-box::box(point const& p1, point const& p2, std::string const& name, color const& col) 
-		: shape(name,col) , vertex_[0](p1), vertex_[1](p2)
+
+box::box(math3d::point const& p1, math3d::point const& p2, std::string const& name, rgb const& col) 
+				: shape(name,col) , vertexLuv_ (p1), vertexRoh_ (p2)
 		{ std::cout << "Konstruktor Box\n"; }
-box::box(box const& bx) : shape(bx) , vertex_(bx.vertex_[0]) , vertex_[1](bx.vertex_[1])	{}
+
+box::box(box const& bx) : shape(bx) , vertexLuv_(bx.vertexLuv_) , vertexRoh_(bx.vertexRoh_)	{}
+
 box::~box() 	{ std::cout << "Destruktor Box\n"; }
+//
+
 
 //
 // volume - Berechnung boxvolumen
 //
 double	box::volume()	const
 {
-	return  std::abs( (vertex_[0].data[x]-vertex_[1].data[x]) * (vertex_[0].data[y]-vertex_[1].data[y]) * (vertex_[0].data[z]-vertex_[1].data[z]) );
+	return  std::abs( (vertexLuv_[math3d::point::x]-vertexRoh_[math3d::point::x]) * 
+			  (vertexLuv_[math3d::point::y]-vertexRoh_[math3d::point::y]) * 
+			  (vertexLuv_[math3d::point::z]-vertexRoh_[math3d::point::z])   );
 }
 //
 
@@ -23,24 +30,11 @@ double	box::volume()	const
 //
 // isInside - Kollision
 //
-bool	box::isInside(point const& p)	const
-{	
-	return ( (p[x] >= vertex_[0].data[x] && p[x] <= vertex_[1].data[x]) &&
-		 (p[y] >= vertex_[0].data[y] && p[y] <= vertex_[1].data[y]) &&
-		 (p[z] >= vertex_[0].data[z] && p[z] <= vertex_[1].data[z]) );
-	//return  (p.getx() >= vertex_.getx() && p.getx() <= vertex_.getx()+x_) &&
-	//	(p.gety() >= vertex_.gety() && p.gety() <= vertex_.gety()+y_) &&
-	//	(p.getz() >= vertex_.getz() && p.getz() <= vertex_.getz()+z_);	
-
-	/*if ( 	skalarpro( point3d(-1,0,0), point3d(p.getx()-vertex_.getx(),    p.gety()-vertex_.gety(),    p.getz()-vertex_.getz()))    >= 0 &&
-		skalarpro( point3d(1,0,0),  point3d(p.getx()-vertex_.getx()-x_, p.gety()-vertex_.gety(),    p.getz()-vertex_.getz()))    >= 0 &&
-		skalarpro( point3d(0,1,0),  point3d(p.getx()-vertex_.getx(),    p.gety()-vertex_.gety()-y_, p.getz()-vertex_.getz()))    >= 0 &&
-		skalarpro( point3d(0,-1,0), point3d(p.getx()-vertex_.getx(),    p.gety()-vertex_.gety(),    p.getz()-vertex_.getz()))    >= 0 &&
-		skalarpro( point3d(0,0,1),  point3d(p.getx()-vertex_.getx(),    p.gety()-vertex_.gety(),    p.getz()-vertex_.getz()))    >= 0 &&
-		skalarpro( point3d(0,0,-1), point3d(p.getx()-vertex_.getx(),    p.gety()-vertex_.gety(),    p.getz()-vertex_.getz()+z_)) >= 0 )
-		return false;
-	else
-		return true;*/
+bool	box::isInside(math3d::point const& p)	const
+{
+	return ( (p[math3d::point::x] >= vertexLuv_[math3d::point::x] && p[math3d::point::x] <= vertexRoh_[math3d::point::x]) &&
+		 (p[math3d::point::y] >= vertexLuv_[math3d::point::y] && p[math3d::point::y] <= vertexRoh_[math3d::point::y]) &&
+		 (p[math3d::point::z] >= vertexLuv_[math3d::point::z] && p[math3d::point::z] <= vertexRoh_[math3d::point::z]) );
 }
 //
 
@@ -50,9 +44,9 @@ bool	box::isInside(point const& p)	const
 //
 double	box::surface()	const
 {
-	return (  std::abs(2 * (vertex_[0].data[x]-vertex_[1].data[x]) * (vertex_[0].data[y]-vertex_[1].data[y])) 
-	 	+ std::abs(2 * (vertex_[0].data[x]-vertex_[1].data[x]) * (vertex_[0].data[z]-vertex_[1].data[z])) 
-		+ std::abs(2 * (vertex_[0].data[z]-vertex_[1].data[z]) * (vertex_[0].data[y]-vertex_[1].data[y]))  );
+     return (  std::abs(2* (vertexLuv_[math3d::point::x]-vertexRoh_[math3d::point::x]) * (vertexLuv_[math3d::point::y]-vertexRoh_[math3d::point::y])) 
+	     + std::abs(2* (vertexLuv_[math3d::point::x]-vertexRoh_[math3d::point::x]) * (vertexLuv_[math3d::point::z]-vertexRoh_[math3d::point::z])) 
+	     + std::abs(2* (vertexLuv_[math3d::point::z]-vertexRoh_[math3d::point::z]) * (vertexLuv_[math3d::point::y]-vertexRoh_[math3d::point::y])) );
 }
 //
 
@@ -64,7 +58,10 @@ void box::printOn(std::ostream& stream)		const
 {
 	stream << "\nBox: \n";
 	shape::printOn(stream);
-	//stream << "Vertex: " << vertex_[x] << " " << vertex_[y] << " " << vertex_[z] << "\n";
+	stream << "Vertex Links unten vorne: " << vertexLuv_[math3d::point::x] << " " 
+		<< vertexLuv_[math3d::point::y] << " " << vertexLuv_[math3d::point::z] << "\n";
+	stream << "Vertex Rechts oben hinten: " << vertexRoh_[math3d::point::x] << " " 
+		<< vertexRoh_[math3d::point::y] << " " << vertexRoh_[math3d::point::z] << "\n";
 	//stream << "Länge: " << x_ << " ,  Breite: " << z_ << " ,  Höhe: " << y_ << "\n";
 	stream << "Volumen: " << volume() << "\nOberfläche: " << surface() << "\n";
 }
