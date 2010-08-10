@@ -67,6 +67,8 @@ namespace math3d {
   point operator+(point const&, vector const&);
   point operator-(point const&, vector const&);
   bool operator==(point const&, point const&);
+    
+  double distance(point const&, point const&);
   
   std::ostream& operator<<(std::ostream&, point const&);
   

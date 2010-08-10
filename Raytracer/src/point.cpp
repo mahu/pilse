@@ -144,6 +144,12 @@ namespace math3d {
     return point(lhs) -= rhs;
   }
   
+  double
+  distance(point const& a, point const& b)
+  {
+    return std::abs(length(vector(a, b)));
+  }
+  
   std::ostream&
   operator<<(std::ostream& os, point const& a)
   {

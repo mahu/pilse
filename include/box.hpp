@@ -4,6 +4,7 @@
 #include "shape.hpp"
 #include "point.hpp"
 #include "rgb.hpp"
+#include "ray.hpp"
 #include <iostream>
 #include <cmath>
 
@@ -21,6 +22,7 @@ class box : public shape
 	/*virtual*/	double	surface()				const;
 	/*virtual*/	void	printOn(std::ostream&)			const;
 	/*virtual*/	box*	clone()					const;
+			double	intersection(ray)			const;
 
 
 

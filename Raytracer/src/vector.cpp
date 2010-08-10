@@ -148,6 +148,29 @@ namespace math3d {
     
     return *this;
   }
+
+  double
+  vector::length() const
+  {
+    return std::sqrt(length_square());
+  }
+
+  double
+  vector::length_square() const
+  {
+    return dot(*this, *this);
+  }
+  
+  vector&
+  vector::normalize()
+  {
+    vector tmp(*this);
+
+    tmp /= length();
+
+    swap(tmp);
+    return *this;
+  }
   
   vector
   operator-(vector const& rhs)
@@ -190,10 +213,17 @@ namespace math3d {
   {
     return vector(lhs) /= rhs;
   }
-
- double operator*(vector const& lhs, vector const& rhs)
+  
+  double
+  length(vector const& a)
   {
-	return (lhs[vector::x]*rhs[vector::x]+lhs[vector::y]*rhs[vector::y]+lhs[vector::z]+rhs[vector::z]);
+    return a.length();
+  }
+
+  double
+  length_square(vector const& a)
+  {
+    return a.length_square();
   }
   
   /* static */ vector const&
@@ -222,6 +252,32 @@ namespace math3d {
   {
     static vector unit_z_(0.0, 0.0, 1.0); 
     return unit_z_;
+  }
+
+  double
+  dot(vector const& lhs, vector const& rhs)
+  {
+    return ((lhs[vector::x] * rhs[vector::x]) +
+            (lhs[vector::y] * rhs[vector::y]) +
+            (lhs[vector::z] * rhs[vector::z]));
+  }
+
+  vector
+  cross(vector const& lhs, vector const& rhs)
+  {
+    return vector(((lhs[vector::y] * rhs[vector::z]) - (lhs[vector::z] * rhs[vector::y])),
+                  ((lhs[vector::z] * rhs[vector::x]) - (lhs[vector::x] * rhs[vector::z])),
+                  ((lhs[vector::x] * rhs[vector::y]) - (lhs[vector::y] * rhs[vector::x])));
+  }
+
+  vector
+  normalize(vector const& a)
+  {
+    vector tmp(a);
+
+    tmp.normalize();
+    
+    return tmp;
   }
   
   std::ostream&

@@ -61,13 +61,13 @@ namespace math3d {
     matrix& operator*=(double);
     matrix& operator/=(double);
     
-    double trace() const;
-    
-    // to implement
     double determinant() const;
-
+    double trace() const;
+ 
     bool invert();
-
+    void transpose();
+    void lr_decompose(matrix& l, matrix& r) const;
+   
     bool is_invertible() const; // det(M) != 0
 
     static matrix const& null();     // m[[0,0,0,0],[0,0,0,0],[0,0,0,0],[0,0,0,0]]
@@ -97,7 +97,15 @@ namespace math3d {
 
   bool operator==(matrix const&, matrix const&);
 
+  matrix make_translation(double, double, double);
+  matrix make_translation(vector const&);
+
+  matrix make_scale(double, double, double);
+  matrix make_scale(vector const&);
+
   matrix make_rotation_x(double);
+  matrix make_rotation_y(double);
+  matrix make_rotation_z(double);
 
   double determinant(matrix const&);
   double trace(matrix const&);

@@ -69,19 +69,16 @@ namespace math3d {
   // functions, exported
   
   matrix::matrix()
-    : data_()
   {
     std::copy(ident_array16, ident_array16+16, data_);
   }
   
   matrix::matrix(matrix const& rhs)
-    : data_()
   {
     std::copy(rhs.data_, rhs.data_+16, data_);
   }
 
   matrix::matrix(double const a[16])
-    : data_()
   {
     std::copy(a, a+16, data_);
   }
@@ -221,20 +218,40 @@ namespace math3d {
     
     return *this;
   }
+  
+  double
+  matrix::determinant() const
+  {
+    double const& a1(data_[ 0]);
+    double const& b1(data_[ 4]);
+    double const& c1(data_[ 8]);
+    double const& d1(data_[12]);
+    
+    double const& a2(data_[ 1]);
+    double const& b2(data_[ 5]);
+    double const& c2(data_[ 9]);
+    double const& d2(data_[13]);
+    
+    double const& a3(data_[ 2]);
+    double const& b3(data_[ 6]);
+    double const& c3(data_[10]);
+    double const& d3(data_[14]);
+    
+    double const& a4(data_[ 3]);
+    double const& b4(data_[ 7]);
+    double const& c4(data_[11]);
+    double const& d4(data_[15]);
+    
+    return (a1 * det3_helper(b2, b3, b4, c2, c3, c4, d2, d3, d4) -
+            b1 * det3_helper(a2, a3, a4, c2, c3, c4, d2, d3, d4) +
+            c1 * det3_helper(a2, a3, a4, b2, b3, b4, d2, d3, d4) -
+            d1 * det3_helper(a2, a3, a4, b2, b3, b4, c2, c3, c4));
+  }
 
   double
   matrix::trace() const
   {
     return data_[0] + data_[5] + data_[10] + data_[15];
-  }
-
-  double
-  matrix::determinant() const
-  {
-    // to implement!
-    double det(0.0);    
-
-    return det;
   }
   
   bool
@@ -288,6 +305,83 @@ namespace math3d {
     }
 
     return result;
+  }
+
+  void
+  matrix::transpose()
+  {
+    matrix tmp(*this);
+
+    // data_[ 0] = tmp.data_[ 0];
+    data_[ 1] = tmp.data_[ 4];
+    data_[ 2] = tmp.data_[ 8];
+    data_[ 3] = tmp.data_[12];
+    data_[ 4] = tmp.data_[ 1];
+    // data_[ 5] = tmp.data_[ 5];
+    data_[ 6] = tmp.data_[ 9];
+    data_[ 7] = tmp.data_[13];
+    data_[ 8] = tmp.data_[ 2];
+    data_[ 9] = tmp.data_[ 6];
+    // data_[10] = tmp.data_[10];
+    data_[11] = tmp.data_[14];
+    data_[12] = tmp.data_[ 3];
+    data_[13] = tmp.data_[ 7];
+    data_[14] = tmp.data_[11];
+    // data_[15] = tmp.data_[15];
+  }
+
+
+  void 
+  matrix::lr_decompose(matrix& l, matrix& r) const
+  {    
+    // initialise matrices
+    r = *this;
+    l = matrix::identity();
+
+    // first row
+    double const q1 = r[ab] / r[aa];
+    double const q2 = r[ac] / r[aa];
+    double const q3 = r[ad] / r[aa];
+
+    r[ab] -= q1 * r[aa]; 
+    r[bb] -= q1 * r[ba];
+    r[cb] -= q1 * r[ca];
+    r[db] -= q1 * r[da];
+
+    r[ac] -= q2 * r[aa]; 
+    r[bc] -= q2 * r[ba];
+    r[cc] -= q2 * r[ca];
+    r[dc] -= q2 * r[da];
+
+    r[ad] -= q3 * r[aa]; 
+    r[bd] -= q3 * r[ba];
+    r[cd] -= q3 * r[ca];
+    r[dd] -= q3 * r[da];
+
+    l[ab] = q1;
+    l[ac] = q2;
+    l[ad] = q3;
+
+    // second row
+    double const q4 = r[bc] / r[bb];
+    double const q5 = r[bd] / r[bb];
+	
+    r[bc] -= q4 * r[bb];
+    r[cc] -= q4 * r[cb];
+    r[dc] -= q4 * r[db];
+
+    r[bd] -= q5 * r[bc];
+    r[cd] -= q5 * r[cc];
+    r[dd] -= q5 * r[dc];
+
+    l[bc] = q4;
+    l[bd] = q5;
+
+    // third row
+    double q6 = r[cd] / r[cc];
+    r[cd] -= q6 * r[cc];
+    r[dd] -= q6 * r[dc];
+    l[cd]  = q6; 
   }
 
   bool
@@ -406,6 +500,42 @@ namespace math3d {
   }
 
   matrix
+  make_translation(double a, double b, double c)
+  {
+    matrix tmp;
+
+    tmp[matrix::da] = a;
+    tmp[matrix::db] = b;
+    tmp[matrix::dc] = c;
+    
+    return tmp;
+  }
+
+  matrix
+  make_translation(vector const& a)
+  {
+    return make_translation(a[vector::x], a[vector::y], a[vector::z]);
+  }
+
+  matrix
+  make_scale(double a, double b, double c)
+  {
+    matrix tmp;
+
+    tmp[matrix::aa] = a;
+    tmp[matrix::bb] = b;
+    tmp[matrix::cc] = c;
+    
+    return tmp;
+  }
+
+  matrix
+  make_scale(vector const& a)
+  {
+    return make_scale(a[vector::x], a[vector::y], a[vector::z]);
+  }
+
+  matrix
   make_rotation_x(double a)
   {
     double const cos_a(std::cos(a));
@@ -417,6 +547,38 @@ namespace math3d {
     tmp[matrix::cb] =  sin_a;
     tmp[matrix::bc] = -sin_a;
     tmp[matrix::cc] =  cos_a;
+    
+    return tmp;
+  }
+
+  matrix
+  make_rotation_y(double a)
+  {
+    double const cos_a(std::cos(a));
+    double const sin_a(std::sin(a));
+    
+    matrix tmp;
+
+    tmp[matrix::aa] =  cos_a;
+    tmp[matrix::ca] = -sin_a;
+    tmp[matrix::ac] =  sin_a;
+    tmp[matrix::cc] =  cos_a;
+    
+    return tmp;
+  }
+
+  matrix
+  make_rotation_z(double a)
+  {
+    double const cos_a(std::cos(a));
+    double const sin_a(std::sin(a));
+    
+    matrix tmp;
+
+    tmp[matrix::aa] =  cos_a;
+    tmp[matrix::ba] =  sin_a;
+    tmp[matrix::ab] = -sin_a;
+    tmp[matrix::bb] =  cos_a;
     
     return tmp;
   }
@@ -442,6 +604,16 @@ namespace math3d {
     
     return tmp;
   }
+
+  matrix
+  transpose(matrix const& a)
+  {
+    matrix tmp(a);
+
+    tmp.transpose();
+    
+    return tmp;
+  }
   
   bool
   is_invertible(matrix const& a)
@@ -458,26 +630,26 @@ namespace math3d {
       os << std::fixed << std::setprecision(3)
          << '['
          << a[matrix::aa] << ','
-         << a[matrix::ab] << ','
-         << a[matrix::ac] << ','
-         << a[matrix::ad] << ','
-         << std::endl
-         << ' '
          << a[matrix::ba] << ','
-         << a[matrix::bb] << ','
-         << a[matrix::bc] << ','
-         << a[matrix::bd] << ','
-         << std::endl
-         << ' '
          << a[matrix::ca] << ','
-         << a[matrix::cb] << ','
-         << a[matrix::cc] << ','
-         << a[matrix::cd] << ','
+         << a[matrix::da] << ','
          << std::endl
          << ' '
-         << a[matrix::da] << ','
+         << a[matrix::ab] << ','
+         << a[matrix::bb] << ','
+         << a[matrix::cb] << ','
          << a[matrix::db] << ','
+         << std::endl
+         << ' '
+         << a[matrix::ac] << ','
+         << a[matrix::bc] << ','
+         << a[matrix::cc] << ','
          << a[matrix::dc] << ','
+         << std::endl
+         << ' '
+         << a[matrix::ad] << ','
+         << a[matrix::bd] << ','
+         << a[matrix::cd] << ','
          << a[matrix::dd]
          << ']';
     }

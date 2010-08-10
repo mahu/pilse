@@ -10,6 +10,7 @@ default:
 	$(COMPILER) $(FLAGS) pixel.cpp $(BFLAGS)
 	$(COMPILER) $(FLAGS) sphere.cpp $(BFLAGS)
 	$(COMPILER) $(FLAGS) ray.cpp $(BFLAGS)
+	$(COMPILER) $(FLAGS) box.cpp $(BFLAGS)
 	rm *.o
 
 intersect:
