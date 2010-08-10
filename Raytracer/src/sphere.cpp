@@ -59,7 +59,31 @@ sphere* sphere::clone()	const
 {
 	return new sphere(*this);	
 }
-//
+
+double sphere::intersection(ray a)
+{
+	if(sqrt(pow(a.origin_,2)-4*(origin_*origin_-pow(radius,2)))>0)
+	{
+		double i_1=0.5*(-(2*a.origin_)-sqrt(pow(a.origin_,2)-4*(origin_*origin_-pow(radius,2))));
+		double i_2=0.5*(-(2*a.origin_)+sqrt(pow(a.origin_,2)-4*(origin_*origin_-pow(radius,2))));
+		
+		if(i_1<=i_2)
+			return i_1;
+		else
+			return i_2;
+		
+
+	}
+	else if (sqrt(pow(a.origin_,2)-4*(origin_*origin_-pow(radius,2)))==0)
+	{
+		double i_1=0.5*(-(2*a.origin_)-sqrt(pow(a.origin_,2)-4*(origin_*origin_-pow(radius,2))));
+		
+		return i_1;
+	}
+	
+	return ~0;
+}
+
 
 /*
 //

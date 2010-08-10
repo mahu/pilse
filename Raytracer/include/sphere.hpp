@@ -18,6 +18,7 @@ class sphere : public shape
 	/*virtual*/	double	surface()			const;
 	/*virtual*/	void	printOn( std::ostream&)		const;
 	/*virtual*/	sphere*	clone()				const;
+			double	intersection(ray const&);
 	//		sphere*	operator=(sphere*);
 	//		sphere	operator=(sphere);
 
