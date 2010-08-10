@@ -64,15 +64,15 @@ sphere* sphere::clone()	const
 	return new sphere(*this);	
 }
 
-double sphere::intersection(ray const& a)
+double sphere::intersection(ray const& g)
 {
 	//Strahl transformieren
 	//Multiplikation mit inverser Matrix der Sphere
 
 	//quadratische gl
-	double a = math3d::dot(a.direction_, a.direction_)
-	double b = 2 * (math3d::dot(a.origin_ , a.direction_));
-	double c = (math3d::dot(a.origin_ , a.origin_)) - (radius_*radius_);
+	double a = math3d::dot(g.direction_, g.direction_);
+	double b = 2 * (math3d::dot(g.origin_ , g.direction_));
+	double c = (math3d::dot(g.origin_ , g.origin_)) - (radius_*radius_);
 
 	double under_sqrt = (b * b) - 4 * c;
 
