@@ -18,13 +18,11 @@ class sphere : public shape
 	/*virtual*/	double	surface()			const;
 	/*virtual*/	void	printOn( std::ostream&)		const;
 	/*virtual*/	sphere*	clone()				const;
-	//		sphere*	operator=(sphere*);
-	//		sphere	operator=(sphere);
 
 
     private:
 			math3d::point	center_;
-			double 	radius_;
+			double 		radius_;
 
 };
 

@@ -2,12 +2,16 @@
 #include<cmath>
 #include "sphere.hpp"
 
-
+//
+// Konstruktoren
+//
 sphere::sphere() 	{}
 sphere::sphere(math3d::point const& c, double r, std::string const& name, rgb const& col) : shape(name, col) , center_(c) , radius_(r)
 			{}
 sphere::sphere(sphere const& sp) : shape(sp) , center_(sp.center_) , radius_(sp.radius_) {}
 sphere::~sphere() 	{}
+//
+
 
 //
 // volume - Berechnung Kugelvolumen
@@ -60,30 +64,6 @@ sphere* sphere::clone()	const
 	return new sphere(*this);	
 }
 //
-
-/*
-//
-// operator =
-//
-sphere*	sphere::operator=(sphere* sp)
-{
-	sp->ref();
-std::cout << "\nhihu\n";
-	return sp;
-}
-//
-
-sphere	sphere::operator=(sphere sp)
-{
-	sp.ref();
-std::cout << "\nhihu\n";
-	return sp;
-}*/
-//
-
-
-
-
 
 
 
