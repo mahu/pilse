@@ -66,28 +66,32 @@ sphere* sphere::clone()	const
 
 double sphere::intersection(ray const& a)
 {
-	double under_sqrt=((a.origin_*a.origin_)/4)-(a.origin_*a.origin_-pow(radius_,2));
+	//quadratische gl
+	double b = 2 * (math3d::dot(a.origin_ , a.direction_));
+	double c = (math3d::dot(a.origin_ , a.origin_)) - (radius_*radius_);
 
-	if(under_sqrt>0)
+	double under_sqrt = (b * b) - 4 * c;
+
+	if(under_sqrt < 0)
 	{
-		double i_1=0.5*(2*(a.origin_*a.direction_))+sqrt(under_sqrt);
-		double i_2=0.5*(2*(a.origin_*a.direction_))-sqrt(under_sqrt);
+		return ~0;
+	}
+	else if (under_sqrt > 0)
+	{
+		double i_1 = 0.5 * (-b - sqrt(under_sqrt));
+		double i_2 = 0.5 * (-b + sqrt(under_sqrt));
 		
-		if(i_1>=i_2)
+		if(i_1 >= i_2)
 			return i_1;
 		else
-			return i_2;
-		
-
+			return i_2;	
 	}
-	else if (under_sqrt==0)
+	else
 	{
-		double i_1=0.5*(2*(a.origin_*a.direction_));
+		double i_1 = -(0.5 * b);
 		
 		return i_1;
 	}
-	
-	return ~0;
 }
 
 
