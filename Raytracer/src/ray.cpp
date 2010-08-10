@@ -1,15 +1,14 @@
 #include "ray.hpp"
 
-ray::ray():
+ray::ray() :
 	origin_(0,0,0,0),
-	direction_(0,0,1,0)
-{}
+	direction_(0,0,1,0)		{}
 
-ray::ray(math3d::vector o,math3d::vector d):
-  	origin_(o),
- 	direction_(d)
+ray::ray(math3d::vector o,math3d::vector d) :
+  	origin_(o) ,
+ 	direction_(d)	{]
 
-{
+/*{
 	//Normalisieren des Richtungsvektors
 
 	double laenge_dir = std::sqrt(std::pow(direction_[math3d::vector::x],2) +
@@ -20,6 +19,6 @@ ray::ray(math3d::vector o,math3d::vector d):
 	{
 		direction_ = direction_/laenge_dir;
 	}
-}
+}*/
 
 
