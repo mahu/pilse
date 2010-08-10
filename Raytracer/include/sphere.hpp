@@ -2,19 +2,19 @@
 #define	_SPHERE_HPP
 
 #include "shape.hpp"
-#include "point3d.hpp"
-#include "color.hpp"
+#include "point.hpp"
+#include "rgb.hpp"
 
 class sphere : public shape
 {
     public:
                         	sphere();
-				sphere(point const&, double, std::string const&, rgb const&);
+				sphere(math3d::point const&, double, std::string const&, rgb const&);
 				sphere(sphere const&);
 				~sphere();
  
 	/*virtual*/ 	double	volume()			const;
-	/*virtual*/ 	bool	isInside(point const&)	const;
+	/*virtual*/ 	bool	isInside(math3d::point const&)	const;
 	/*virtual*/	double	surface()			const;
 	/*virtual*/	void	printOn( std::ostream&)		const;
 	/*virtual*/	sphere*	clone()				const;
@@ -23,7 +23,7 @@ class sphere : public shape
 
 
     private:
-			point	center_;
+			math3d::point	center_;
 			double 	radius_;
 
 };

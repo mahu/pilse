@@ -1,13 +1,13 @@
 
-
+#include<cmath>
 #include "sphere.hpp"
 
 
-sphere::sphere() 	{ std::cout << "Konstruktor Sphere\n"; }
-sphere::sphere(point const& c, double r, std::string const& name, rgb const& col) : shape(name, col) , center_(c) , radius_(r)
-			{ std::cout << "Konstruktor Sphere\n"; }
+sphere::sphere() 	{}
+sphere::sphere(math3d::point const& c, double r, std::string const& name, rgb const& col) : shape(name, col) , center_(c) , radius_(r)
+			{}
 sphere::sphere(sphere const& sp) : shape(sp) , center_(sp.center_) , radius_(sp.radius_) {}
-sphere::~sphere() 	{ std::cout << "Destruktor Sphere\n"; }
+sphere::~sphere() 	{}
 
 //
 // volume - Berechnung Kugelvolumen
@@ -22,12 +22,9 @@ double	sphere::volume()	const
 //
 // isInside - Kollision
 //
-bool	sphere::isInside(point const& p)	const
+bool	sphere::isInside(math3d::point const& p)	const
 {
-	( (sqrt(pow(center_[x]-p[x],2) + pow(center_[y]-p[y],2) + pow(center_[z]-p[z],2))) <= radius_)
-//		return true;
-//	else
-//		return false;
+	return ( (sqrt(pow(center_[math3d::point::x]-p[math3d::point::x],2) + pow(center_[math3d::point::y]-p[math3d::point::y],2) + pow(center_[math3d::point::z]-p[math3d::point::z],2))) <= radius_);
 }
 //
 
@@ -49,7 +46,7 @@ void sphere::printOn(std::ostream& stream)		const
 {
 	stream << "\nSphere:\n";
 	shape::printOn(stream);
-	stream << "Mittelpunkt: (" << center_[x] << "," << center_[y] << "," << center_[z] << ")\n";
+	stream << "Mittelpunkt: (" << center_[math3d::point::x] << "," << center_[math3d::point::y] << "," << center_[math3d::point::z] << ")\n";
 	stream << "Radius: " << radius_ << "\n";
 }
 //
