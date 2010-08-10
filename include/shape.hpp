@@ -3,8 +3,8 @@
 
 #include <iostream>
 #include <string>
-#include "color.hpp"
-#include "point3d.hpp"
+#include "rgb.hpp"
+#include "point.hpp"
 
 class shape
 {
@@ -15,7 +15,7 @@ class shape
 	virtual			~shape();
  
 	virtual double		volume() 					const 	=0;
-	virtual bool		isInside(point3d const&)			const	=0;
+	virtual bool		isInside(point const&)			const	=0;
 	virtual	double		surface()					const	=0;
 	virtual shape*		clone()						const	=0;
 //		color		getColor()					const;

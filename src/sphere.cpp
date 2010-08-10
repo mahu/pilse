@@ -3,11 +3,11 @@
 #include "sphere.hpp"
 
 
-sphere::sphere() 	{ std::cout << "Konstruktor Sphere\n"; }
+sphere::sphere() 	{}
 sphere::sphere(point const& c, double r, std::string const& name, rgb const& col) : shape(name, col) , center_(c) , radius_(r)
-			{ std::cout << "Konstruktor Sphere\n"; }
+			{}
 sphere::sphere(sphere const& sp) : shape(sp) , center_(sp.center_) , radius_(sp.radius_) {}
-sphere::~sphere() 	{ std::cout << "Destruktor Sphere\n"; }
+sphere::~sphere() 	{}
 
 //
 // volume - Berechnung Kugelvolumen

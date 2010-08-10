@@ -2,8 +2,8 @@
 #define	_SPHERE_HPP
 
 #include "shape.hpp"
-#include "point3d.hpp"
-#include "color.hpp"
+#include "point.hpp"
+#include "rgb.hpp"
 
 class sphere : public shape
 {
