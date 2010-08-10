@@ -66,7 +66,11 @@ sphere* sphere::clone()	const
 
 double sphere::intersection(ray const& a)
 {
+	//Strahl transformieren
+	//Multiplikation mit inverser Matrix der Sphere
+
 	//quadratische gl
+	double a = math3d::dot(a.direction_, a.direction_)
 	double b = 2 * (math3d::dot(a.origin_ , a.direction_));
 	double c = (math3d::dot(a.origin_ , a.origin_)) - (radius_*radius_);
 
@@ -78,8 +82,8 @@ double sphere::intersection(ray const& a)
 	}
 	else if (under_sqrt > 0)
 	{
-		double i_1 = 0.5 * (-b - sqrt(under_sqrt));
-		double i_2 = 0.5 * (-b + sqrt(under_sqrt));
+		double i_1 = 0.5 * (-b - sqrt(under_sqrt)) / a;
+		double i_2 = 0.5 * (-b + sqrt(under_sqrt)) / a;
 		
 		if(i_1 >= i_2)
 			return i_1;
@@ -88,7 +92,7 @@ double sphere::intersection(ray const& a)
 	}
 	else
 	{
-		double i_1 = -(0.5 * b);
+		double i_1 = -(0.5 * b) / a;
 		
 		return i_1;
 	}
