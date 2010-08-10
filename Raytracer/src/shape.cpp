@@ -1,10 +1,10 @@
 #include "shape.hpp"
 
 
-shape::shape() : refCount_(0)	{ std::cout << "Konstruktor Shape\n"; }
-shape::shape(std::string const& s, rgb const& col) : color_(col) , name_(s) , refCount_(0) { std::cout << "Konstruktor Shape\n"; }
-shape::shape(shape const& sh) : color_(sh.color_) , name_(sh.name_), refCount_(0) { std::cout << "konstruktor Shape\n";  }
-shape::~shape() { std::cout << "Destruktor Shape\n"; }
+shape::shape() : refCount_(0)	{}
+shape::shape(std::string const& s, rgb const& col) : color_(col) , name_(s) , refCount_(0) {}
+shape::shape(shape const& sh) : color_(sh.color_) , name_(sh.name_), refCount_(0) {}
+shape::~shape() {}
 
 
 //

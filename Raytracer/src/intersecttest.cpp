@@ -6,9 +6,9 @@
 int main()
 {
 
-math3d::vector a(0,0,0,0);
-math3d::vector c(3,0,0,0);
-math3d::point b(3,0,0,1);
+math3d::vector a(-5,0,0,0);
+math3d::vector c(-4,0,0,0);
+math3d::point b(0,0,0,1);
 
 sphere s(b,1,"kugel",rgb(1,2,3));
 ray x(a,c);

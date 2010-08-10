@@ -66,7 +66,7 @@ sphere* sphere::clone()	const
 
 double sphere::intersection(ray const& a)
 {
-	double under_sqrt=(a.origin_*a.origin_)-4*(a.origin_*a.origin_-pow(radius_,2));
+	double under_sqrt=((a.origin_*a.origin_)/4)-(a.origin_*a.origin_-pow(radius_,2));
 
 	if(under_sqrt>0)
 	{
