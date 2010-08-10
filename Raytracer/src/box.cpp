@@ -3,11 +3,15 @@
 //
 // Konstruktoren, Destruktor
 //
-box::box() 	{ std::cout << "Konstruktor Box\n"; }
+box::box():
+  		shape("Box",rgb(),material()),
+ 		vertexLuv_(math3d::point(0,0,0,1)),
+  		vertexRoh_(math3d::point(1,1,1,1))
+	{}
 
-box::box(math3d::point const& p1, math3d::point const& p2, std::string const& name, rgb const& col) 
-				: shape(name,col) , vertexLuv_ (p1), vertexRoh_ (p2)
-		{ std::cout << "Konstruktor Box\n"; }
+box::box(math3d::point const& p1, math3d::point const& p2, std::string const& name,rgb const& col, material const& mat) 
+				: shape(name,col,mat) , vertexLuv_ (p1), vertexRoh_ (p2)
+		{}
 
 box::box(box const& bx) : shape(bx) , vertexLuv_(bx.vertexLuv_) , vertexRoh_(bx.vertexRoh_)	{}
 
@@ -77,7 +81,7 @@ box* box::clone()	const
 }
 //
 
-double box::intersection(ray g) const
+double box::intersection(ray const& g) const
 {
 
 	double t_x_min= (vertexLuv_[math3d::point::x]/g.direction_[math3d::vector::x])-g.origin_[math3d::vector::x];
