@@ -80,72 +80,71 @@ box* box::clone()	const
 double box::intersection(ray g) const
 {
 
-double t_x_min= (vertexLuv_[math3d::point::x]/g.direction_[math3d::vector::x])-g.origin_[math3d::vector::x];
+	double t_x_min= (vertexLuv_[math3d::point::x]/g.direction_[math3d::vector::x])-g.origin_[math3d::vector::x];
 
-double t_x_min_y=g.origin_[math3d::vector::y]+t_x_min*g.direction_[math3d::vector::y];
+	double t_x_min_y=g.origin_[math3d::vector::y]+t_x_min*g.direction_[math3d::vector::y];
 
-double t_x_min_z=g.origin_[math3d::vector::z]+t_x_min*g.direction_[math3d::vector::z];
+	double t_x_min_z=g.origin_[math3d::vector::z]+t_x_min*g.direction_[math3d::vector::z];
 
-if(vertexLuv_[math3d::point::y]<=t_x_min_y && t_x_min_y<=vertexRoh_[math3d::point::y] && vertexLuv_[math3d::point::z]<=t_x_min_z && t_x_min_z<=vertexRoh_[math3d::point::z])
-{
-	return t_x_min;
-}
+	if(vertexLuv_[math3d::point::y]<=t_x_min_y && t_x_min_y<=vertexRoh_[math3d::point::y] && vertexLuv_[math3d::point::z]<=t_x_min_z && t_x_min_z<=vertexRoh_[math3d::point::z])
+	{
+		return t_x_min;
+	}
 
-double t_y_min= (vertexLuv_[math3d::point::y]/g.direction_[math3d::vector::y])-g.origin_[math3d::vector::y];
+	double t_y_min= (vertexLuv_[math3d::point::y]/g.direction_[math3d::vector::y])-g.origin_[math3d::vector::y];
+	
+	double t_y_min_x=g.origin_[math3d::vector::x]+t_y_min*g.direction_[math3d::vector::x];
+	
+	double t_y_min_z=g.origin_[math3d::vector::z]+t_y_min*g.direction_[math3d::vector::z];
+	
+	if(vertexLuv_[math3d::point::x]<=t_y_min_x && t_y_min_x<=vertexRoh_[math3d::point::x] && vertexLuv_[math3d::point::z]	<=t_y_min_z && t_y_min_z<=vertexRoh_[math3d::point::z])
+	{
+		return t_y_min;
+	}
+	
+	double t_z_min= (vertexLuv_[math3d::point::z]/g.direction_[math3d::vector::z])-g.origin_[math3d::vector::z];
+	
+	double t_z_min_x=g.origin_[math3d::vector::x]+t_z_min*g.direction_[math3d::vector::x];
+	
+	double t_z_min_y=g.origin_[math3d::vector::y]+t_z_min*g.direction_[math3d::vector::y];
+	
+	if(vertexLuv_[math3d::point::x]<=t_z_min_x && t_z_min_x<=vertexRoh_[math3d::point::x] && vertexLuv_[math3d::point::y]	<=t_z_min_y && t_z_min_y<=vertexRoh_[math3d::point::y])
+	{
+		return t_z_min;
+	}
+	
+	double t_x_max= (vertexRoh_[math3d::point::x]/g.direction_[math3d::vector::x])-g.origin_[math3d::vector::x];
+	
+	double t_x_max_y=g.origin_[math3d::vector::y]+t_x_min*g.direction_[math3d::vector::y];
+	
+	double t_x_max_z=g.origin_[math3d::vector::z]+t_x_min*g.direction_[math3d::vector::z];
 
-double t_y_min_x=g.origin_[math3d::vector::x]+t_y_min*g.direction_[math3d::vector::x];
+	if(vertexLuv_[math3d::point::y]<=t_x_min_y && t_x_min_y<=vertexRoh_[math3d::point::y] && vertexLuv_[math3d::point::z]	<=t_x_min_z && t_x_min_z<=vertexRoh_[math3d::point::z])
+	{
+		return t_x_max;
+	}
 
-double t_y_min_z=g.origin_[math3d::vector::z]+t_y_min*g.direction_[math3d::vector::z];
+	double t_y_max= (vertexRoh_[math3d::point::y]/g.direction_[math3d::vector::y])-g.origin_[math3d::vector::y];
 
-if(vertexLuv_[math3d::point::x]<=t_y_min_x && t_y_min_x<=vertexRoh_[math3d::point::x] && vertexLuv_[math3d::point::z]<=t_y_min_z && t_y_min_z<=vertexRoh_[math3d::point::z])
-{
-	return t_y_min;
-}
+	double t_y_max_x=g.origin_[math3d::vector::x]+t_y_min*g.direction_[math3d::vector::x];
 
-double t_z_min= (vertexLuv_[math3d::point::z]/g.direction_[math3d::vector::z])-g.origin_[math3d::vector::z];
+	double t_y_max_z=g.origin_[math3d::vector::z]+t_y_min*g.direction_[math3d::vector::z];
 
-double t_z_min_x=g.origin_[math3d::vector::x]+t_z_min*g.direction_[math3d::vector::x];
+	if(vertexLuv_[math3d::point::x]<=t_y_min_x && t_y_min_x<=vertexRoh_[math3d::point::x] && vertexLuv_[math3d::point::z]<=t_y_min_z && t_y_min_z<=vertexRoh_[math3d::point::z])
+	{
+		return t_y_max;
+	}
 
-double t_z_min_y=g.origin_[math3d::vector::y]+t_z_min*g.direction_[math3d::vector::y];
+	double t_z_max= (vertexRoh_[math3d::point::z]/g.direction_[math3d::vector::z])-g.origin_[math3d::vector::z];
 
-if(vertexLuv_[math3d::point::x]<=t_z_min_x && t_z_min_x<=vertexRoh_[math3d::point::x] && vertexLuv_[math3d::point::y]<=t_z_min_y && t_z_min_y<=vertexRoh_[math3d::point::y])
-{
-	return t_z_min;
-}
+	double t_z_max_x=g.origin_[math3d::vector::x]+t_z_min*g.direction_[math3d::vector::x];
 
-double t_x_max= (vertexRoh_[math3d::point::x]/g.direction_[math3d::vector::x])-g.origin_[math3d::vector::x];
+	double t_z_max_y=g.origin_[math3d::vector::y]+t_z_min*g.direction_[math3d::vector::y];
 
-double t_x_max_y=g.origin_[math3d::vector::y]+t_x_min*g.direction_[math3d::vector::y];
-
-double t_x_max_z=g.origin_[math3d::vector::z]+t_x_min*g.direction_[math3d::vector::z];
-
-if(vertexLuv_[math3d::point::y]<=t_x_min_y && t_x_min_y<=vertexRoh_[math3d::point::y] && vertexLuv_[math3d::point::z]<=t_x_min_z && t_x_min_z<=vertexRoh_[math3d::point::z])
-{
-	return t_x_max;
-}
-double t_y_max= (vertexRoh_[math3d::point::y]/g.direction_[math3d::vector::y])-g.origin_[math3d::vector::y];
-
-double t_y_max_x=g.origin_[math3d::vector::x]+t_y_min*g.direction_[math3d::vector::x];
-
-double t_y_max_z=g.origin_[math3d::vector::z]+t_y_min*g.direction_[math3d::vector::z];
-
-if(vertexLuv_[math3d::point::x]<=t_y_min_x && t_y_min_x<=vertexRoh_[math3d::point::x] && vertexLuv_[math3d::point::z]<=t_y_min_z && t_y_min_z<=vertexRoh_[math3d::point::z])
-{
-	return t_y_max;
-}
-
-double t_z_max= (vertexRoh_[math3d::point::z]/g.direction_[math3d::vector::z])-g.origin_[math3d::vector::z];
-
-double t_z_max_x=g.origin_[math3d::vector::x]+t_z_min*g.direction_[math3d::vector::x];
-
-double t_z_max_y=g.origin_[math3d::vector::y]+t_z_min*g.direction_[math3d::vector::y];
-
-if(vertexLuv_[math3d::point::x]<=t_z_min_x && t_z_min_x<=vertexRoh_[math3d::point::x] && vertexLuv_[math3d::point::y]<=t_z_min_y && t_z_min_y<=vertexRoh_[math3d::point::y])
-{
-	return t_z_max;
-}
-
-
+	if(vertexLuv_[math3d::point::x]<=t_z_min_x && t_z_min_x<=vertexRoh_[math3d::point::x] && vertexLuv_[math3d::point::y]<=t_z_min_y && t_z_min_y<=vertexRoh_[math3d::point::y])
+	{
+		return t_z_max;
+	}
 
 return ~0;
 
