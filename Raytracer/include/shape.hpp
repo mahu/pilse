@@ -5,6 +5,7 @@
 #include "point.hpp"
 #include "ray.hpp"
 #include "material.hpp"
+#include "matrix.hpp"
 
 #include <iostream>
 #include <string>
@@ -13,7 +14,7 @@ class shape
 {
     public:
 	                        shape();
-				shape(std::string const&, rgb const&, material const&);
+				shape(std::string const&, material const&, math3d::matrix const& matr = math3d::matrix::identity() );
 				shape(shape const&);
 	virtual			~shape();
  
@@ -22,20 +23,23 @@ class shape
 	virtual	double		surface()					const	=0;
 	virtual shape*		clone()						const	=0;
 	virtual	double		intersection(ray const&)			const	=0;
-		rgb		getColor()					const;
 		std::string	getName()					const;
 		material	getMaterial()					const;
 	virtual	void		printOn(std::ostream& = std::cout)		const;
 		int		ref();
 		int		unRef();
-	//	shape*		operator=(shape*);
+
+		void		translate(math3d::vector const&);
+		void		scale(math3d::vector const&);
+		void		rotate(math3d::vector const&, double);
+
 
    private:
 
-	rgb		color_;
 	std::string	name_;
 	int		refCount_;
 	material	material_;
+	math3d::matrix	worldMatrix_;
 
 };
 

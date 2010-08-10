@@ -1,13 +1,13 @@
 
-#include<cmath>
+
 #include "sphere.hpp"
 
 //
 // Konstruktoren
 //
 sphere::sphere() 	{}
-sphere::sphere(math3d::point const& c, double r, std::string const& name, rgb const& col, material const& mat) : 
-		shape(name, col, mat) , 
+sphere::sphere(math3d::point const& c, double r, std::string const& name, material const& mat) : 
+		shape(name, mat) , 
 		center_(c) , 
 		radius_(r)
 			{}
