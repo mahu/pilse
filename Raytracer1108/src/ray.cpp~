@@ -21,7 +21,7 @@ ray::ray(math3d::vector o,math3d::vector d) :
 	}
 }*/
 
-/*double ray::trace(std::list<shape*> shapeList, std::list<light> const& lightList)
+double ray::trace(std::list<shape*> shapeList, std::list<light> const& lightList)
 {
 	double closestT = ~0;
 	shape* closestObj = 0;
@@ -37,4 +37,4 @@ ray::ray(math3d::vector o,math3d::vector d) :
 	}
 	
 	return 0.0;
-}*/
+}

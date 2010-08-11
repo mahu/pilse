@@ -23,7 +23,7 @@ class camera
 		void		rotate(math3d::vector const&, double);
 
 
-    //private:
+    private:
 
 	std::string	name_;
 	double		fovX_;

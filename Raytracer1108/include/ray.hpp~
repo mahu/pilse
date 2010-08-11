@@ -4,7 +4,7 @@
 #include "vector.hpp"
 #include "rgb.hpp"
 #include "light.hpp"
-#include "shape.hpp"
+//#include "shape.hpp"
 
 
 #include <iostream>
@@ -18,7 +18,7 @@ class ray
 			ray();
 			ray(math3d::vector a, math3d::vector b);
 
-//	double		trace (std::list<shape*>, std::list<light> const&);
+	double		trace (std::list<shape*>, std::list<light> const&);
 
 
 	//Membervariablen
