@@ -6,6 +6,7 @@
 #include "ray.hpp"
 #include "material.hpp"
 #include "matrix.hpp"
+#include "transform.hpp"
 
 #include <iostream>
 #include <string>
@@ -14,7 +15,9 @@ class shape
 {
     public:
 	                        shape();
-				shape(std::string const&, material const&, math3d::matrix const& matr = math3d::matrix::identity() );
+				shape(std::string const&, material const&, 
+					math3d::matrix const& matr,      // = math3d::matrix::identity(), 
+					math3d::matrix const& matrInv ); // = math3d::matrix::identity() );
 				shape(shape const&);
 	virtual			~shape();
  
@@ -40,6 +43,7 @@ class shape
 	int		refCount_;
 	material	material_;
 	math3d::matrix	worldMatrix_;
+	math3d::matrix	worldMatrixInvers_;
 
 };
 

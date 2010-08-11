@@ -2,16 +2,17 @@
 
 
 shape::shape() : refCount_(0)	{}
-shape::shape(std::string const& s, rgb const& col, material const& mat) : 
-		color_(col) , 
+shape::shape(std::string const& s, material const& mat, math3d::matrix const& matr) : 
 		name_(s) , 
 		refCount_(0), 
-		material_(mat) 	{}
+		material_(mat),
+		worldMatrix_(matr)	{}
+
 shape::shape(shape const& sh) : 
-		color_(sh.color_) , 
 		name_(sh.name_), 
 		refCount_(0), 
-		material_(sh.material_)		 {}
+		material_(sh.material_),
+		worldMatrix_(sh.worldMatrix_)	 {}
 
 shape::~shape() {}
 
@@ -24,15 +25,6 @@ material shape::getMaterial()	const
 	return material_;	
 }
 //
-
-
-//
-// getcolor
-//
-rgb shape::getColor()	const
-{
-	return color_;	
-}
 
 
 //
@@ -50,7 +42,7 @@ std::string shape::getName()	const
 //
 void shape::printOn( std::ostream& stream)	const
 {
-	stream << "Name: " << name_ << ", Farbe: (" << color_[rgb::r] << "," << color_[rgb::g] << "," << color_[rgb::b] << ")\n";
+	stream << "Name: " << name_ << "\n"; //, Farbe: (" << color_[rgb::r] << "," << color_[rgb::g] << "," << color_[rgb::b] << ")\n";
 }
 //
 
@@ -92,7 +84,34 @@ int	shape::unRef()
 //
 
 
+//
+// translate
+//
+void	translate(math3d::vector const&)
+{
+	
+}
+//
 
+
+//
+// scale
+//
+void	scale(math3d::vector const&)
+{
+	
+}
+//
+
+
+//
+// rotate
+//
+void	rotate(math3d::vector const&, double)
+{
+	
+}
+//
 
 
 
