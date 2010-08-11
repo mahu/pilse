@@ -1,15 +1,14 @@
 #ifndef __RAY_HPP__
 #define __RAY_HPP__
 
+#include "light.hpp"
 #include "vector.hpp"
 #include "rgb.hpp"
-#include "light.hpp"
-
-
 
 #include <iostream>
 #include <cmath>
 #include <list>
+
 
 class ray
 {
