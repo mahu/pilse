@@ -25,7 +25,7 @@ class shape
 	virtual bool		isInside(math3d::point const&)			const	=0;
 	virtual	double		surface()					const	=0;
 	virtual shape*		clone()						const	=0;
-	virtual	double		intersection(ray const&)			const	=0;
+	//virtual	double		intersection(ray const&)			const	=0;
 		std::string	getName()					const;
 		material	getMaterial()					const;
 	virtual	void		printOn(std::ostream& = std::cout)		const;
@@ -44,6 +44,7 @@ class shape
 	material	material_;
 	math3d::matrix	worldMatrix_;
 	math3d::matrix	worldMatrixInvers_;
+	ray::ray x;
 
 };
 
