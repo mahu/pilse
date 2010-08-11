@@ -23,18 +23,5 @@ ray::ray(math3d::vector o,math3d::vector d) :
 
 /*double ray::trace(std::list<shape*> shapeList, std::list<light> const& lightList)
 {
-	double closestT = ~0;
-	shape* closestObj = 0;
-	for ( std::list<shape*>::const_iterator i = shapeList.begin(); i != shapeList.end(); ++i)
-	{
-		double newT = (**i).intersection(*this);
 
-		if (newT < closestT)
-		{ 
-			closestT = newT;
-			closestObj = *i;
-		}
-	}
-	
-	return 0.0;
 }*/
