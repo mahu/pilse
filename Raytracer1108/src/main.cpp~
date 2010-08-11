@@ -53,7 +53,7 @@ class rt_application
 			        pixel p(x, y);
 
         			// compute color for pixel
-				//ray r(math3d::vector(0,0,0,0), math3d::vector(x, y, z));
+				ray r(math3d::vector(0,0,0,0), math3d::vector(x, y, z));
 
 				//p.color = r.trace (shapeList_, lightList_);
 
