@@ -6,7 +6,7 @@ ray::ray() :
 
 ray::ray(math3d::vector o,math3d::vector d) :
   	origin_(o) ,
- 	direction_(d)	{]
+ 	direction_(d)	{}
 
 /*{
 	//Normalisieren des Richtungsvektors

@@ -20,7 +20,7 @@ class sphere : public shape
 	/*virtual*/	double	surface()			const;
 	/*virtual*/	void	printOn( std::ostream&)		const;
 	/*virtual*/	sphere*	clone()				const;
-	/*virual*/	double	intersection(ray const&);
+	/*virual*/	double	intersection(ray const&)	const;	
 
 
     private:
